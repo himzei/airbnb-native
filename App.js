@@ -4,6 +4,7 @@ import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 import { Image, Text } from "react-native";
+import Gate from "./components/Gate";
 
 const cacheImages = (images) =>
   images.map((image) => {
@@ -30,7 +31,7 @@ export default function App() {
     return Promise.all([...imagePromises, ...fontPromises]);
   };
   return isReady ? (
-    <Text>I'm ready</Text>
+    <Gate />
   ) : (
     <AppLoading
       onError={console.error}
