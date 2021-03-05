@@ -7,6 +7,7 @@ import DismissKeyboard from "../../components/DismissKeyboard";
 
 const Container = styled.View`
   flex: 1;
+  margin-top: 30%;
   justify-content: center;
   align-items: center;
 `;
