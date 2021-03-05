@@ -14,7 +14,7 @@ const Button = styled.View`
     border: 1px solid ${(props) =>
       props.accent ? "transparent" : colors.black}
     width: ${width /1.5}px;
-    background-color: ${(props) => (props.accent ? colors.red : "transparent")}
+    background-color: ${(props) => (props.accent ? colors.red : "transparent")};
 `;
 
 const Text = styled.Text`
