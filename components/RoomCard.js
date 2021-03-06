@@ -1,13 +1,14 @@
 import React from "react";
 import Pt from "prop-types";
 import styled from "styled-components/native";
-import { Dimensions } from "react-native";
+import { Dimensions, TouchableOpacity } from "react-native";
 import Swiper from "react-native-web-swiper";
 import { Ionicons } from "@expo/vector-icons";
 import utils from "../utils";
 import { useDispatch } from "react-redux";
 import { toggleFav } from "../redux/usersSlice";
 import colors from "../colors";
+import { useNavigation } from "@react-navigation/core";
 
 const { height } = Dimensions.get("screen");
 
@@ -81,66 +82,68 @@ const Topacity = styled.TouchableOpacity`
 
 function getIconName(isFav) {
   const isAndroid = utils.isAndroid();
-  if(isAndroid){
-    if(isFav){
-      return "md-heart"
+  if (isAndroid) {
+    if (isFav) {
+      return "md-heart";
     }
-    return "md-heart-outline"
-  }else{
-    if(isFav){
-      return "ios-heart"
+    return "md-heart-outline";
+  } else {
+    if (isFav) {
+      return "ios-heart";
     }
-    return "ios-heart-outline"
+    return "ios-heart-outline";
   }
-
 }
 
 const RoomCard = ({ id, isFav, isSuperHost, photos, name, price }) => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   return (
-    <Container>
-      <Topacity onPress={() => dispatch(toggleFav(id))}>
-        <FavButton>
-          <Ionicons
-            size={28}
-            color={isFav ? colors.red : "black"}
-            name={getIconName(isFav)}
-          />
-        </FavButton>
-      </Topacity>
-      <PhotosContainer>
-        {photos.length === 0 ? (
-          <SlideImage
-            resizeMode="repeat"
-            source={require("../assets/roomDefault.jpeg")}
-          />
-        ) : (
-          <Swiper
-            controlsProps={{
-              PrevComponent: () => null,
-              NextComponent: () => null,
-              dotActiveStyle: {
-                backgroundColor: "white",
-              },
-            }}
-          >
-            {photos.map((photo) => (
-              <SlideImage key={photo.id} source={{ uri: photo.file }} />
-            ))}
-          </Swiper>
-        )}
-      </PhotosContainer>
-      {isSuperHost ? (
-        <Superhost>
-          <SuperHostText>Superhost</SuperHostText>
-        </Superhost>
-      ) : null}
-      <Name>{name}</Name>
-      <PriceContainer>
-        <PriceNumber>${price}</PriceNumber>
-        <PriceText> / night</PriceText>
-      </PriceContainer>
-    </Container>
+    <TouchableOpacity onPress={() => navigation.navigate("RoomDetail")}>
+      <Container>
+        <Topacity onPress={() => dispatch(toggleFav(id))}>
+          <FavButton>
+            <Ionicons
+              size={28}
+              color={isFav ? colors.red : "black"}
+              name={getIconName(isFav)}
+            />
+          </FavButton>
+        </Topacity>
+        <PhotosContainer>
+          {photos.length === 0 ? (
+            <SlideImage
+              resizeMode="repeat"
+              source={require("../assets/roomDefault.jpeg")}
+            />
+          ) : (
+            <Swiper
+              controlsProps={{
+                PrevComponent: () => null,
+                NextComponent: () => null,
+                dotActiveStyle: {
+                  backgroundColor: "white",
+                },
+              }}
+            >
+              {photos.map((photo) => (
+                <SlideImage key={photo.id} source={{ uri: photo.file }} />
+              ))}
+            </Swiper>
+          )}
+        </PhotosContainer>
+        {isSuperHost ? (
+          <Superhost>
+            <SuperHostText>Superhost</SuperHostText>
+          </Superhost>
+        ) : null}
+        <Name>{name}</Name>
+        <PriceContainer>
+          <PriceNumber>${price}</PriceNumber>
+          <PriceText> / night</PriceText>
+        </PriceContainer>
+      </Container>
+    </TouchableOpacity>
   );
 };
 

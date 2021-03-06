@@ -45,7 +45,7 @@ const roomsSlice = createSlice({
           state.favs = state.favs.filter(room => room.id !== roomId)
         }else{
           room.is_favs = true
-          state.favs.push(room)
+          state.favs = [room, ...state.favs]
         }
       }
     },
