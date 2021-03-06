@@ -27,6 +27,7 @@ export default function App() {
   const loadAssets = async () => {
     const images = [
       require("./assets/loginBg.jpeg"),
+      require("./assets/roomDefault.jpeg"),
       "https://w7.pngwing.com/pngs/248/721/png-transparent-airbnb-rebrand-logo-online-marketplace-rebranding-airbnb-logo-text-service-trademark.png",
     ];
     const fonts = [Ionicons.font];
