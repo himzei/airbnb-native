@@ -44,7 +44,7 @@ export const getRooms = (page) => async (dispatch) => {
     dispatch(
       setExploreRooms({
         rooms: results,
-        page
+        page,
       })
     );
   } catch (e) {
