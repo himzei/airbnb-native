@@ -34,13 +34,35 @@ const roomsSlice = createSlice({
     setFavs(state, action) {
       state.favs = action.payload;
     },
+    setFav(state, action) {
+      const {
+        payload: { roomId },
+      } = action;
+      const room = state.explore.rooms.find((room) => room.id === roomId);
+      if(room){
+        if(room.is_favs){
+          room.is_favs = false
+          state.favs = state.favs.filter(room => room.id !== roomId)
+        }else{
+          room.is_favs = true
+          state.favs.push(room)
+        }
+      }
+    },
   },
 });
 
-export const { setExploreRooms, increasePage, setFavs } = roomsSlice.actions;
+export const {
+  setExploreRooms,
+  increasePage,
+  setFavs,
+  setFav,
+} = roomsSlice.actions;
 
 export const getRooms = (page) => async (dispatch, getState) => {
-  const { usersReducer: {token}} = getState();
+  const {
+    usersReducer: { token },
+  } = getState();
   try {
     const {
       data: { results },
