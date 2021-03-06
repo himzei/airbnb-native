@@ -37,7 +37,7 @@ const PriceContainer = styled.View`
 
 const PriceText = styled.Text`
   font-size: 12px;
-  padding-top: 3px;        
+  padding-top: 3px;
 `;
 
 const PriceNumber = styled.Text`
@@ -53,7 +53,7 @@ const PhotosContainer = styled.View`
 `;
 
 const SlideImage = styled.Image`
-  width: 100%; 
+  width: 100%;
   height: 100%;
 `;
 
@@ -66,7 +66,12 @@ const RoomCard = ({ id, isFav, isSuperHost, photos, name, price }) => (
           source={require("../assets/roomDefault.jpeg")}
         />
       ) : (
-        <Swiper>
+        <Swiper
+          autoplay
+          paginationStyle={{ marginBottom: -10 }}
+          dotColor={"rgba(200, 200, 200, 0.5)"}
+          activeDotColor={"white"}
+        >
           {photos.map((photo) => (
             <SlideImage key={photo.id} source={{ uri: photo.file }} />
           ))}
