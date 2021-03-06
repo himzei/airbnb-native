@@ -68,7 +68,7 @@ export default ({ rooms, increasePage }) => {
                 key={room.id}
                 name={room.name}
                 id={room.id}
-                isFav={room.is_fav}
+                isFav={room.is_favs}
                 photos={room.photos}
                 isSuperHost={room.user.superhost}
               />
