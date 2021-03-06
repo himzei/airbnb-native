@@ -5,6 +5,8 @@ import Btn from "../../components/Auth/Btn";
 import Input from "../../components/Auth/Input";
 import DismissKeyboard from "../../components/DismissKeyboard";
 import { isEmail } from "../../utils";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../redux/usersSlice";
 
 const Container = styled.View`
   flex: 1;
@@ -18,6 +20,7 @@ const InputContainer = styled.View`
 `;
 
 export default ({ route: { params } }) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState(params?.email);
   const [password, setPassword] = useState(params?.password);
   const isFormValid = () => {
@@ -29,11 +32,16 @@ export default ({ route: { params } }) => {
       alert("Email is invalid");
       return false;
     }
+    return true
   };
   const handleSubmit = () => {
     if (!isFormValid()) {
-      return;
+      return 
     }
+    dispatch(userLogin({
+      username: email, 
+      password
+    }))
   };
   const dismissKeyboard = () => Keyboard.dismiss();
   return (

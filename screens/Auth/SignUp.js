@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StatusBar, KeyboardAvoidingView } from "react-native";
 import styled from "styled-components/native";
-import { createAccount } from "../../api";
+import api from "../../api";
 import Btn from "../../components/Auth/Btn";
 import Input from "../../components/Auth/Input";
 import DismissKeyboard from "../../components/DismissKeyboard";
@@ -47,7 +47,7 @@ export default ({navigation: {navigate}}) => {
     }
     setLoading(true);
     try {
-      const { status } = await createAccount({
+      const { status } = await api.createAccount({
         first_name: firstName,
         last_name: lastName,
         email,
