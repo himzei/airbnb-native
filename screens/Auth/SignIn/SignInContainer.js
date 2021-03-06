@@ -7,8 +7,8 @@ import utils from "../../../utils";
 
 export default ({ route: { params } }) => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState(params?.email);
-  const [password, setPassword] = useState(params?.password);
+  const [email, setEmail] = useState(params?.email || "himzei@hotmail.com");
+  const [password, setPassword] = useState(params?.password || "1111");
   const isFormValid = () => {
     if (email === "" || password === "") {
       alert("All Fields are required!!!");
