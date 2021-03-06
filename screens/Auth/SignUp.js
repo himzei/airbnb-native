@@ -19,39 +19,50 @@ const InputContainer = styled.View`
   margin-top: 100px;
 `;
 
-export default () => {
+export default ({navigation: {navigate}}) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const validateForm = () => {
+  const [loading, setLoading] = useState(false);
+  const isFormValid = () => {
     if (
-        firstName === "" ||
-        lastName === "" ||
-        email === "" ||
-        password === ""
-      ) {
-        alert("all fields are required");
-        return;
-      }
-      if(!isEmail(email)){
-          alert("Please add a valid Email");
-          return;
-      }
-  }
+      firstName === "" ||
+      lastName === "" ||
+      email === "" ||
+      password === ""
+    ) {
+      alert("all fields are required");
+      return false;
+    }
+    if (!isEmail(email)) {
+      alert("Please add a valid Email");
+      return false;
+    }
+    return true;
+  };
   const handleSubmit = async () => {
-    validateForm();
-    try{
-        const {status} = await createAccount({
-            first_name: firstName, 
-            last_name: lastName, 
-            email, 
-            username: email, 
-            password
-        })
-        console.log(status)
-    }catch(e){
-        console.log(e)
+    if (!isFormValid()) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const { status } = await createAccount({
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        username: email,
+        password,
+      });
+      if (status === 201) {
+        alert("Account created. Sign in, Please!!!");
+        navigate("SignIn", {email, password});
+      }
+    } catch (e) {
+      alert(e);
+      console.log(e);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -86,7 +97,12 @@ export default () => {
               stateFn={setPassword}
             />
           </InputContainer>
-          <Btn text={"Sign Un"} accent onPress={handleSubmit}></Btn>
+          <Btn
+            loading={loading}
+            text={"Sign Un"}
+            accent
+            onPress={handleSubmit}
+          ></Btn>
         </KeyboardAvoidingView>
       </Container>
     </DismissKeyboard>
