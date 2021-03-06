@@ -85,7 +85,7 @@ const RoomCard = ({ id, isFav, isSuperHost, photos, name, price }) => (
     ) : null}
     <Name>{name}</Name>
     <PriceContainer>
-      <PriceNumber>{price}</PriceNumber>
+      <PriceNumber>${price}</PriceNumber>
       <PriceText> / night</PriceText>
     </PriceContainer>
   </Container>
