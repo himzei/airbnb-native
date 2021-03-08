@@ -97,7 +97,7 @@ const RoomCard = ({ id, isFav, isSuperHost, photos, name, price, roomObj }) => {
       </Topacity>
       <RoomPhotos photos={photos} />
       <TouchableOpacity
-        style={{ alignItems: "flex-start"}}
+        style={{ alignItems: "flex-start" }}
         onPress={() => navigation.navigate("RoomDetail", { ...roomObj })}
       >
         {isSuperHost ? (

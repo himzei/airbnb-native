@@ -1,5 +1,8 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  HeaderBackground,
+} from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Explore from "../screens/Main/Explore";
 import Profile from "../screens/Main/Profile";
@@ -10,7 +13,8 @@ import utils from "../utils";
 import { Ionicons } from "@expo/vector-icons";
 import Room from "../screens/Main/Room";
 import BackBtn from "../components/Auth/BackBtn";
-
+import { BlurView } from "expo-blur";
+import { StyleSheet } from "react-native";
 
 const TabsNavigator = createBottomTabNavigator();
 
@@ -59,15 +63,28 @@ export default () => (
   <MainNavigator.Navigator
     mode="modal"
     screenOptions={{
-       headerBackTitleVisible: false, 
-       headerBackImage:() => <BackBtn />
-       }}
+      headerBackTitleVisible: false,
+      headerBackImage: () => <BackBtn />,
+    }}
   >
     <MainNavigator.Screen
       name="Tabs"
       options={{ headerShown: false }}
       component={Tabs}
     />
-    <MainNavigator.Screen name="RoomDetail" component={Room} />
+    <MainNavigator.Screen
+      name="RoomDetail"
+      component={Room}
+      options={{
+        headerTransparent: true,
+        HeaderBackground: () => (
+          <BlurView
+            intnsity={50}
+            tint="light"
+            style={StyleSheet.absoluteFill}
+          />
+        ),
+      }}
+    />
   </MainNavigator.Navigator>
 );
