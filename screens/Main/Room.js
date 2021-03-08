@@ -76,7 +76,9 @@ export default ({ route: { params }, navigation }) => {
     <Container>
       <RoomPhotos photos={params.photos} factor={2} />
       <DataContainer>
-        <Address>{params.address} / {params.price}</Address>
+        <Address>
+          {params.address} / {params.price}
+        </Address>
         <PropertyInfoContainer>
           <PropertyInfoData>
             <PropertyInfoText>{formatQtt(params.beds, "bed")}</PropertyInfoText>
@@ -114,14 +116,17 @@ export default ({ route: { params }, navigation }) => {
               altitude: 10 * 200,
               pitch: 50,
               heading: 0,
+              zoom: 10,
             }}
             scrollEnabled={false}
             style={{ height: "100%", width: "100%" }}
           >
-            <Marker coordinate={{
-              longitude: parseFloat(params.lng), 
-              latitude: parseFloat(params.lat)
-            }} />
+            <Marker
+              coordinate={{
+                longitude: parseFloat(params.lng),
+                latitude: parseFloat(params.lat),
+              }}
+            />
           </MapView>
         </MapContainer>
       </DataContainer>
