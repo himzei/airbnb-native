@@ -28,22 +28,62 @@ const RoomContainer = styled.View`
 const RoomCard = styled.View`
   background-color: white;
   width: ${width - 80}px;
-  height: 200px;
+  height: 120px;
+  border-radius: 10px;
+  padding: 0px 20px;
+  flex-direction: row;
+  align-items: center;
   margin-right: 20px;
 `;
 
-const RoomName = styled.Text``;
+const RoomPhoto = styled.Image`
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+  margin-right: 10px;
+`;
+const Column = styled.View`
+  width: 70%;
+`;
+
+const RoomName = styled.Text`
+  font-size: 18px;
+`;
+
+const RoomPrice = styled.Text`
+  font-size: 16px;
+  margin-top: 5px;
+`;
 
 const Map = ({ rooms }) => {
   console.log(rooms);
   return (
     <Container>
-      <MapView style={StyleSheet.absoluteFill} />
+      <MapView style={StyleSheet.absoluteFill} camera={{
+        center: {
+          latitude: parseFloat(rooms[0].lat), 
+          longitude: parseFloat(rooms[0].lng)
+        },
+        altitude: 700, 
+        pitch: 0, 
+        heading: 0, 
+        zoom: 10
+      }} />
       <ScrollView showsHorizontalScrollIndicator={false} horizontal>
         {rooms?.map((room) => (
           <RoomContainer key={room.id}>
             <RoomCard>
-              <RoomName>{room.name}</RoomName>
+              <RoomPhoto
+                source={
+                  room.photos[0]?.file
+                    ? { uri: room.photos[0]?.file }
+                    : require("../../assets/roomDefault.jpeg")
+                }
+              />
+              <Column>
+                <RoomName>{room.name}</RoomName>
+                <RoomPrice>${room.price}</RoomPrice>
+              </Column>
             </RoomCard>
           </RoomContainer>
         ))}
